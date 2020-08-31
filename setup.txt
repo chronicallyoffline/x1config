@@ -1,0 +1,30 @@
+##Enable RPMFusion 
+
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+##Enable Better Fonts
+sudo dnf copr enable dawid/better_fonts
+
+## Install VA-API and Audio Tools
+sudo dnf install fontconfig-enhanced-defaults fontconfig-font-replacements libva libva-utils ffmpeg intel-media-driver alsa-tools patch gnome-tweak-tool tilix evolution -y
+
+sudo cp HiFi.conf.dist /usr/share/alsa/ucm2/sof-hda-dsp/HiFi.conf.dist && cd /usr/share/alsa/ucm2/sof-hda-dsp/
+sudo patch < HiFi.conf.dist
+
+sudo nano /etc/systemd/system/hda-fix.service
+
+[Unit]
+Description=Bass Sound Fix For Lenovo X1 7th gen
+After=multi-user.target suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hda-verb /dev/snd/hwC0D0 0x17 SET_CONNECT_SEL 1
+
+[Install]
+WantedBy=multi-user.target suspend.target hibernate.target hybrid-sleep.target
+
+##Start Service
+
+
+alsactl --file ~/.config/asound.state store

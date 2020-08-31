@@ -1,0 +1,26 @@
+--- /usr/share/alsa/ucm2/sof-hda-dsp/HiFi.conf.dist
++++ /usr/share/alsa/ucm2/sof-hda-dsp/HiFi.conf
+@@ -20,9 +20,9 @@ SectionDevice."Headphones1" {
+ 	Value {
+ 		PlaybackPriority 200
+ 		PlaybackPCM "hw:${CardId}"
+-		PlaybackMixerElem "Headphone"
++		PlaybackMixerElem "Master"
+ 		PlaybackMasterElem "Master"
+-		PlaybackVolume "Headphone Playback Volume"
++		PlaybackVolume "Master Playback Volume"
+ 		PlaybackSwitch "Headphone Playback Switch"
+ 		If.jack {
+ 			Condition {
+@@ -72,9 +72,9 @@ SectionDevice."Speaker" {
+ 	Value {
+ 		PlaybackPriority 100
+ 		PlaybackPCM "hw:${CardId}"
+-		PlaybackMixerElem "Speaker"
++		PlaybackMixerElem "Master"
+ 		PlaybackMasterElem "Master"
+-		PlaybackVolume "Speaker Playback Volume"
++		PlaybackVolume "Master Playback Volume"
+ 		PlaybackSwitch "Speaker Playback Switch"
+ 	}
+ }
